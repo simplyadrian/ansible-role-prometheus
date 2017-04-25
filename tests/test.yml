@@ -6,20 +6,13 @@
 
     prometheus_components: [ "prometheus", "node_exporter", "alertmanager" ]
 
-
-    prometheus_rule_files:
-      this_is_rule_1_InstanceDown:
-        src:  basic.rules
-        dest: basic.rules
-
-
     prometheus_alertmanager_url: "http://localhost:9093/"
 
-    prometheus_alertmanager_conf: "test/alertmanager.yml.j2"
+    prometheus_alertmanager_conf: "alertmanager.yml.j2"
 
   roles:
     - ansible-role-prometheus
 
   post_tasks:
     - name: copy file_sd
-      copy: src="{{ playbook_dir }}/service_discovery.yml"  dest={{ prometheus_file_sd_config_path }}
+      copy: src="service_discovery.yml"  dest={{ prometheus_file_sd_config_path }}
